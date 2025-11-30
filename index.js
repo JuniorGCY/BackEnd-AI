@@ -13,13 +13,13 @@ const client = new OpenAI({
 
 app.post("/chat", async (req, res) => {
   try {
-    const { messages } = req.body;
+    const { message } = req.body;
 
     const completion = await client.responses.create({
       model: "gpt-4.1-mini",
       input: [
-        { role: "system", content: "Você é um assistente educado dentro do aplicativo mobile Projeto Amparo." },
-        ...messages
+        { role: "system", content: "Você é um assistente educado dentro de um aplicativo mobile." },
+        { role: "user", content: message }
       ],
     });
 
@@ -33,4 +33,9 @@ app.post("/chat", async (req, res) => {
   }
 });
 
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log("Servidor rodando na porta " + PORT);
+});
 
